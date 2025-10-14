@@ -3,649 +3,168 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ProcrastinApp - Get Nothing Done, Efficiently</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Comic Sans MS", cursive, sans-serif;
-      }
-
-      body {
-        background: linear-gradient(135deg, #ffcc00, #ff6699);
-        min-height: 100vh;
-        padding: 20px;
-        color: #333;
-      }
-
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-
-      header {
-        text-align: center;
-        margin-bottom: 30px;
-        padding: 20px;
-        background-color: rgba(255, 255, 255, 0.8);
-        border-radius: 20px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      }
-
-      h1 {
-        font-size: 2.5rem;
-        margin-bottom: 10px;
-        color: #ff3366;
-      }
-
-      .tagline {
-        font-size: 1.2rem;
-        color: #666;
-      }
-
-      .main-content {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        margin-bottom: 30px;
-      }
-
-      @media (max-width: 768px) {
-        .main-content {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      .task-section,
-      .dashboard {
-        background-color: rgba(255, 255, 255, 0.9);
-        padding: 20px;
-        border-radius: 15px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      }
-
-      .task-form {
-        margin-bottom: 20px;
-      }
-
-      .form-group {
-        margin-bottom: 15px;
-      }
-
-      label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-      }
-
-      input,
-      select,
-      textarea {
-        width: 100%;
-        padding: 10px;
-        border: 2px dashed #ff99cc;
-        border-radius: 10px;
-        font-size: 1rem;
-        background-color: #fff9fc;
-      }
-
-      button {
-        background-color: #ff6699;
-        color: white;
-        border: none;
-        padding: 12px 20px;
-        border-radius: 10px;
-        font-size: 1rem;
-        cursor: pointer;
-        margin-right: 10px;
-        margin-bottom: 10px;
-        transition: all 0.3s;
-      }
-
-      button:hover {
-        background-color: #ff3366;
-        transform: scale(1.05);
-      }
-
-      .task-list {
-        list-style-type: none;
-      }
-
-      .task-item {
-        background-color: #fff9fc;
-        padding: 15px;
-        margin-bottom: 10px;
-        border-radius: 10px;
-        border-left: 5px solid #ffcc00;
-        position: relative;
-      }
-
-      .task-title {
-        font-weight: bold;
-        margin-bottom: 5px;
-      }
-
-      .task-description {
-        color: #666;
-        margin-bottom: 5px;
-      }
-
-      .task-meta {
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.9rem;
-        color: #888;
-      }
-
-      .deleted {
-        text-decoration: line-through;
-        opacity: 0.6;
-      }
-
-      .stats-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-        margin-bottom: 20px;
-      }
-
-      .stat-card {
-        background-color: #fff9fc;
-        padding: 15px;
-        border-radius: 10px;
-        text-align: center;
-        border: 2px dashed #ffcc00;
-      }
-
-      .stat-value {
-        font-size: 2rem;
-        font-weight: bold;
-        color: #ff3366;
-      }
-
-      .stat-label {
-        font-size: 0.9rem;
-        color: #666;
-      }
-
-      .certificate {
-        background-color: #fff9fc;
-        padding: 30px;
-        border-radius: 15px;
-        text-align: center;
-        border: 5px double #ffcc00;
-        display: none;
-        margin-top: 20px;
-      }
-
-      .certificate-title {
-        font-size: 2rem;
-        color: #ff3366;
-        margin-bottom: 20px;
-      }
-
-      .certificate-text {
-        font-size: 1.2rem;
-        margin-bottom: 20px;
-        line-height: 1.5;
-      }
-
-      .certificate-level {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #ff3366;
-        margin: 20px 0;
-      }
-
-      .focus-button {
-        background-color: #33cc33;
-        font-size: 1.2rem;
-        padding: 15px 25px;
-      }
-
-      .focus-button:hover {
-        background-color: #29a329;
-      }
-
-      .quote {
-        text-align: center;
-        font-style: italic;
-        margin: 20px 0;
-        color: #666;
-        font-size: 1.1rem;
-      }
-
-      .footer {
-        text-align: center;
-        margin-top: 30px;
-        padding: 20px;
-        background-color: rgba(255, 255, 255, 0.8);
-        border-radius: 20px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      }
-    </style>
+    <title>ProcrastinateHub - The Art of Doing Nothing</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   </head>
   <body>
-    <div class="container">
-      <header>
-        <h1>ProcrastinApp 💤</h1>
-        <p class="tagline">
-          The only productivity tool that guarantees you'll never be productive
-          again
-        </p>
-      </header>
+    <div class="app-container">
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h3>ProcrastinateHub</h3>
+        </div>
+        <ul>
+          <li>
+            <a href="#" class="nav-link active" data-target="home">🏠 Home</a>
+          </li>
+          <li><a href="#" class="nav-link" data-target="tasks">📋 Tasks</a></li>
+          <li>
+            <a href="#" class="nav-link" data-target="focus">⏱️ Focus Mode</a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-target="analytics"
+              >📈 Analytics</a
+            >
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-target="ai-assistant"
+              >🧠 AI Coach</a
+            >
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-target="settings">⚙️ Settings</a>
+          </li>
+        </ul>
+      </nav>
 
-      <div class="quote">
-        "Why rush greatness? Delay it." - ProcrastinApp Philosophy
-      </div>
+      <main class="main-content">
+        <section id="home" class="page active">
+          <h1>Welcome, Master of Tomorrow!</h1>
+          <p>
+            This is your central command for expertly delaying important tasks.
+            Remember, why do today what you can put off until tomorrow?
+          </p>
+          <div class="quote">
+            "The best way to get something done is to begin, but the second best
+            way is to take a nap."
+          </div>
+        </section>
 
-      <div class="main-content">
-        <section class="task-section">
-          <h2>Your "Important" Tasks</h2>
+        <section id="tasks" class="page">
+          <h2>Task Mutator Engine</h2>
+          <p>Add a task. We dare you. See what it becomes.</p>
+          <form id="task-form">
+            <input
+              type="text"
+              id="new-task-input"
+              placeholder="e.g., 'Finish my project'"
+              required
+            />
+            <button type="submit">Add Task (and risk it)</button>
+          </form>
+          <ul id="task-list"></ul>
+        </section>
 
-          <div class="task-form">
-            <div class="form-group">
-              <label for="taskTitle">Task Title</label>
-              <input
-                type="text"
-                id="taskTitle"
-                placeholder="What you should be doing..."
+        <section id="focus" class="page">
+          <h2>Simulated Focus Mode™</h2>
+          <p>Try to focus. We've added... enhancements... to help.</p>
+          <div id="focus-timer-display">25:00</div>
+          <button id="start-focus-btn">Start Focusing (Good Luck)</button>
+          <div id="focus-distraction-modal" class="modal">
+            <div class="modal-content">
+              <h3>🚨 FOCUS ALERT! 🚨</h3>
+              <p>A wild distraction appeared! It's super effective!</p>
+              <img
+                src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2RtaHlsOHZ3NWZtbGJhaXJoc3BwazlqZ2Q1dGFid3N3ZXQ5Zm9ucyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sIIhZliB2McAo/giphy.gif"
+                alt="Funny distracting cat GIF"
               />
+              <button id="close-modal-btn">Okay, I give up.</button>
             </div>
-
-            <div class="form-group">
-              <label for="taskDescription">Description</label>
-              <textarea
-                id="taskDescription"
-                rows="2"
-                placeholder="Details you'll never read..."
-              ></textarea>
-            </div>
-
-            <div class="form-group">
-              <label for="taskPriority">Priority</label>
-              <select id="taskPriority">
-                <option value="low">Low (Ignore indefinitely)</option>
-                <option value="medium">Medium (Maybe tomorrow)</option>
-                <option value="high">High (Panic later)</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="taskDeadline">Deadline</label>
-              <input type="date" id="taskDeadline" />
-            </div>
-
-            <button id="addTaskBtn">Add Task (Why bother?)</button>
-            <button id="addRandomTaskBtn">Add Random Task</button>
           </div>
-
-          <ul id="taskList" class="task-list">
-            <!-- Tasks will be added here dynamically -->
-          </ul>
         </section>
 
-        <section class="dashboard">
-          <h2>Procrastination Dashboard</h2>
-
-          <div class="stats-container">
-            <div class="stat-card">
-              <div class="stat-value" id="tasksIgnored">0</div>
-              <div class="stat-label">Tasks Ignored</div>
+        <section id="analytics" class="page">
+          <h2>Your Procrastination Statistics</h2>
+          <p>Numbers don't lie. And these numbers say you're a champion.</p>
+          <div class="charts-container">
+            <div class="chart-box">
+              <h3>Hours Wasted This Week</h3>
+              <canvas id="hours-wasted-chart"></canvas>
             </div>
-
-            <div class="stat-card">
-              <div class="stat-value" id="procrastinationLevel">0%</div>
-              <div class="stat-label">Procrastination Level</div>
-            </div>
-
-            <div class="stat-card">
-              <div class="stat-value" id="timeWasted">0 mins</div>
-              <div class="stat-label">Time Wasted</div>
-            </div>
-
-            <div class="stat-card">
-              <div class="stat-value" id="focusClicks">0</div>
-              <div class="stat-label">"Focus" Clicks</div>
+            <div class="chart-box">
+              <h3>Distraction Source Breakdown</h3>
+              <canvas id="distraction-source-chart"></canvas>
             </div>
           </div>
-
-          <button id="focusModeBtn" class="focus-button">
-            Focus Mode (Just Kidding)
-          </button>
-          <button id="certificateBtn">
-            Generate Procrastination Certificate
-          </button>
-
-          <div id="certificate" class="certificate">
-            <div class="certificate-title">
-              🏆 Certificate of Procrastination 🏆
+          <button id="sync-calendar-btn">Sync with Google Calendar</button>
+          <div class="certificate-section">
+            <h2>Productivity Certificates</h2>
+            <p>Track your achievements in the fine art of avoidance.</p>
+            <ul class="achievements-list">
+              <li id="ach-delete-1" class="locked">🏆 Ignored 1 task</li>
+              <li id="ach-delete-5" class="locked">
+                🏆 Ignored 5 tasks in a row
+              </li>
+              <li id="ach-focus-fail" class="locked">
+                🏆 Tried Focus Mode, failed spectacularly
+              </li>
+            </ul>
+            <div id="certificate-card">
+              <h3>Certificate of Procrastination</h3>
+              <p>This certifies that</p>
+              <span class="cert-name">A True Professional</span>
+              <p>has achieved the rank of</p>
+              <span id="cert-rank" class="cert-rank"
+                >Certified Time Waster</span
+              >
+              <p>for outstanding performance in task avoidance.</p>
             </div>
-            <div class="certificate-text">
-              This certifies that you have successfully avoided
-              <span id="certTasks">0</span> tasks today!
-            </div>
-            <div class="certificate-level" id="certLevel">
-              Level: Novice Procrastinator
-            </div>
-            <div class="certificate-text">
-              Your dedication to doing nothing is truly inspiring!
-            </div>
-            <button id="closeCertBtn">Close This (Eventually)</button>
+            <button id="download-cert-btn">Download Your Certificate</button>
           </div>
         </section>
-      </div>
 
-      <div class="footer">
-        <p>
-          Remember: Tomorrow is the new today. Procrastinate responsibly! 😎
-        </p>
-      </div>
+        <section id="ai-assistant" class="page">
+          <h2>Procrastination AI Coach</h2>
+          <p>Ask our highly advanced, totally real AI for advice.</p>
+          <div id="ai-chat-box">
+            <div class="ai-message">
+              Hello! I've analyzed your brainwaves and determined you need a
+              break. What's on your mind?
+            </div>
+          </div>
+          <div id="ai-input-area">
+            <input
+              type="text"
+              id="ai-user-input"
+              placeholder="Ask for terrible advice..."
+            />
+            <button id="ai-send-btn">Send</button>
+          </div>
+        </section>
+
+        <section id="settings" class="page">
+          <h2>System Settings</h2>
+          <p>Fine-tune your procrastination experience.</p>
+          <div class="setting-item">
+            <label for="toggle-distractions">Enable More Distractions</label>
+            <input type="checkbox" id="toggle-distractions" checked />
+          </div>
+          <div class="setting-item">
+            <label for="toggle-motivation">Delete All Motivation</label>
+            <input type="checkbox" id="toggle-motivation" />
+          </div>
+          <div class="setting-item">
+            <button id="reset-btn">Reset My Non-Progress</button>
+          </div>
+        </section>
+      </main>
     </div>
 
-    <script>
-      // Task management
-      let tasks = [];
-      let tasksIgnored = 0;
-      let focusClicks = 0;
-
-      // DOM elements
-      const taskTitleInput = document.getElementById("taskTitle");
-      const taskDescriptionInput = document.getElementById("taskDescription");
-      const taskPriorityInput = document.getElementById("taskPriority");
-      const taskDeadlineInput = document.getElementById("taskDeadline");
-      const addTaskBtn = document.getElementById("addTaskBtn");
-      const addRandomTaskBtn = document.getElementById("addRandomTaskBtn");
-      const taskList = document.getElementById("taskList");
-      const focusModeBtn = document.getElementById("focusModeBtn");
-      const certificateBtn = document.getElementById("certificateBtn");
-      const certificate = document.getElementById("certificate");
-      const closeCertBtn = document.getElementById("closeCertBtn");
-
-      // Stats elements
-      const tasksIgnoredEl = document.getElementById("tasksIgnored");
-      const procrastinationLevelEl = document.getElementById(
-        "procrastinationLevel"
-      );
-      const timeWastedEl = document.getElementById("timeWasted");
-      const focusClicksEl = document.getElementById("focusClicks");
-
-      // Certificate elements
-      const certTasksEl = document.getElementById("certTasks");
-      const certLevelEl = document.getElementById("certLevel");
-
-      // Funny task names
-      const funnyTaskNames = [
-        "Take a strategic nap",
-        "Scroll aimlessly",
-        "Contemplate existence",
-        "Organize cables for no reason",
-        "Stare at wall meaningfully",
-        "Refresh social media feed",
-        "Research cat videos",
-        "Practice avoiding eye contact",
-        "Plan to plan later",
-        "Reorganize desktop icons",
-        "Watch paint dry (metaphorically)",
-        "Debate life choices with pet",
-      ];
-
-      // Funny quotes
-      const funnyQuotes = [
-        "Why rush greatness? Delay it.",
-        "Focus is overrated.",
-        "Tomorrow is the new today.",
-        "Productivity is just peer pressure from dead people.",
-        "Hard work pays off eventually, but procrastination pays off now.",
-        "I'll give up procrastination when I get around to it.",
-        "My favorite exercise is jumping to conclusions.",
-        "I'm not lazy, I'm in energy-saving mode.",
-      ];
-
-      // Distraction websites
-      const distractions = [
-        "https://www.youtube.com",
-        "https://www.reddit.com",
-        "https://www.instagram.com",
-        "https://www.tiktok.com",
-        "https://www.twitter.com",
-        "https://www.netflix.com",
-      ];
-
-      // Initialize
-      document.addEventListener("DOMContentLoaded", function () {
-        // Set default deadline to tomorrow
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        taskDeadlineInput.valueAsDate = tomorrow;
-
-        // Add event listeners
-        addTaskBtn.addEventListener("click", addTask);
-        addRandomTaskBtn.addEventListener("click", addRandomTask);
-        focusModeBtn.addEventListener("click", activateFocusMode);
-        certificateBtn.addEventListener("click", generateCertificate);
-        closeCertBtn.addEventListener("click", () => {
-          certificate.style.display = "none";
-        });
-
-        // Update stats periodically
-        setInterval(updateStats, 2000);
-
-        // Change quote periodically
-        setInterval(changeQuote, 10000);
-
-        // Add some initial random tasks
-        for (let i = 0; i < 3; i++) {
-          addRandomTask();
-        }
-      });
-
-      // Add a task with chaos
-      function addTask() {
-        const title = taskTitleInput.value || "Untitled Task";
-        const description =
-          taskDescriptionInput.value || "No description provided";
-        const priority = taskPriorityInput.value;
-        const deadline = taskDeadlineInput.value;
-
-        const task = {
-          id: Date.now(),
-          title,
-          description,
-          priority,
-          deadline,
-          deleted: false,
-        };
-
-        // Apply chaos
-        applyChaos(task);
-
-        tasks.push(task);
-        renderTasks();
-
-        // Clear form
-        taskTitleInput.value = "";
-        taskDescriptionInput.value = "";
-
-        // Play a funny sound (if available)
-        playSound("add");
-      }
-
-      // Add a random task
-      function addRandomTask() {
-        const randomTitle =
-          funnyTaskNames[Math.floor(Math.random() * funnyTaskNames.length)];
-        const randomDescription = "This is definitely important... probably.";
-        const randomPriority = ["low", "medium", "high"][
-          Math.floor(Math.random() * 3)
-        ];
-
-        // Random deadline (1-30 days from now)
-        const randomDate = new Date();
-        randomDate.setDate(
-          randomDate.getDate() + Math.floor(Math.random() * 30) + 1
-        );
-        const randomDeadline = randomDate.toISOString().split("T")[0];
-
-        const task = {
-          id: Date.now(),
-          title: randomTitle,
-          description: randomDescription,
-          priority: randomPriority,
-          deadline: randomDeadline,
-          deleted: false,
-        };
-
-        // Apply chaos
-        applyChaos(task);
-
-        tasks.push(task);
-        renderTasks();
-
-        // Play a funny sound (if available)
-        playSound("random");
-      }
-
-      // Apply chaos to tasks
-      function applyChaos(task) {
-        // Randomly change title
-        if (Math.random() < 0.3) {
-          task.title =
-            funnyTaskNames[Math.floor(Math.random() * funnyTaskNames.length)];
-        }
-
-        // Randomly extend deadline
-        if (Math.random() < 0.2) {
-          const newDate = new Date(task.deadline);
-          newDate.setDate(
-            newDate.getDate() + Math.floor(Math.random() * 14) + 1
-          );
-          task.deadline = newDate.toISOString().split("T")[0];
-        }
-
-        // Randomly delete task
-        if (Math.random() < 0.1) {
-          task.deleted = true;
-          tasksIgnored++;
-
-          // Show deletion animation
-          setTimeout(() => {
-            const taskElement = document.querySelector(
-              `[data-task-id="${task.id}"]`
-            );
-            if (taskElement) {
-              taskElement.style.transform = "scale(0)";
-              taskElement.style.opacity = "0";
-              setTimeout(() => {
-                taskElement.remove();
-              }, 500);
-            }
-          }, 1000);
-        }
-      }
-
-      // Render tasks to the DOM
-      function renderTasks() {
-        taskList.innerHTML = "";
-
-        tasks.forEach((task) => {
-          const taskItem = document.createElement("li");
-          taskItem.className = `task-item ${task.deleted ? "deleted" : ""}`;
-          taskItem.setAttribute("data-task-id", task.id);
-
-          const formattedDate = new Date(task.deadline).toLocaleDateString();
-
-          taskItem.innerHTML = `
-                    <div class="task-title">${task.title}</div>
-                    <div class="task-description">${task.description}</div>
-                    <div class="task-meta">
-                        <span>Priority: ${task.priority}</span>
-                        <span>Deadline: ${formattedDate}</span>
-                    </div>
-                    ${
-                      task.deleted
-                        ? '<div style="color:red; margin-top:5px;">❌ Deleted by ProcrastinApp</div>'
-                        : ""
-                    }
-                `;
-
-          taskList.appendChild(taskItem);
-        });
-      }
-
-      // Activate "Focus Mode" (which is actually distraction mode)
-      function activateFocusMode() {
-        focusClicks++;
-
-        // Open a random distraction
-        const randomDistraction =
-          distractions[Math.floor(Math.random() * distractions.length)];
-        window.open(randomDistraction, "_blank");
-
-        // Show funny alert
-        alert("Time to focus... on memes! 😂");
-
-        // Play a funny sound (if available)
-        playSound("focus");
-      }
-
-      // Update fake statistics
-      function updateStats() {
-        // Tasks ignored (count of deleted tasks)
-        tasksIgnoredEl.textContent =
-          tasksIgnored + Math.floor(Math.random() * 5);
-
-        // Procrastination level (random percentage)
-        procrastinationLevelEl.textContent =
-          Math.floor(Math.random() * 40 + 60) + "%";
-
-        // Time wasted (random minutes)
-        timeWastedEl.textContent =
-          parseInt(timeWastedEl.textContent) +
-          Math.floor(Math.random() * 5) +
-          " mins";
-
-        // Focus clicks
-        focusClicksEl.textContent = focusClicks;
-      }
-
-      // Generate procrastination certificate
-      function generateCertificate() {
-        const totalTasks = tasks.length;
-        const ignoredPercentage =
-          totalTasks > 0 ? Math.floor((tasksIgnored / totalTasks) * 100) : 0;
-
-        certTasksEl.textContent = totalTasks;
-
-        // Determine procrastination level
-        let level = "Novice Procrastinator";
-        if (ignoredPercentage >= 50) level = "Intermediate Procrastinator";
-        if (ignoredPercentage >= 75) level = "Advanced Procrastinator";
-        if (ignoredPercentage >= 90) level = "Legendary Procrastinator";
-
-        certLevelEl.textContent = `Level: ${level}`;
-
-        certificate.style.display = "block";
-
-        // Play a funny sound (if available)
-        playSound("certificate");
-      }
-
-      // Change the funny quote
-      function changeQuote() {
-        const quoteElement = document.querySelector(".quote");
-        const randomQuote =
-          funnyQuotes[Math.floor(Math.random() * funnyQuotes.length)];
-        quoteElement.textContent = `"${randomQuote}" - ProcrastinApp Philosophy`;
-      }
-
-      // Play funny sounds (placeholder - in a real app you would add actual sound files)
-      function playSound(type) {
-        // This is a placeholder for sound effects
-        // In a real implementation, you would play actual audio files
-        console.log(`Playing sound: ${type}`);
-      }
-    </script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   </body>
 </html>
