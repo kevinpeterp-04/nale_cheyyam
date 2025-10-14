@@ -1,7 +1,6 @@
 # app.py
 from flask import Flask, render_template, request, jsonify
 import random
-import time
 
 app = Flask(__name__)
 
@@ -13,7 +12,7 @@ tasks_db = [
 ]
 next_id = 4
 
-# Absurd names and priorities for the Task Mutator Engine
+# More chaos for the Task Mutator Engine
 CHAOS_NAMES = [
     "Daydream about being a successful YouTuber",
     "Watch productivity videos instead of working",
@@ -21,9 +20,12 @@ CHAOS_NAMES = [
     "Contemplate the fleeting nature of existence",
     "Research the world's most comfortable chair",
     "Organize snacks by color",
-    "Find the perfect GIF for a 3-day-old conversation"
+    "Find the perfect GIF for a 3-day-old conversation",
+    "Alphabetize your spice rack, you know, for 'efficiency'",
+    "Figure out what the dog is thinking",
+    "Fall down a Wikipedia rabbit hole about historical hats"
 ]
-CHAOS_PRIORITIES = ["High-ish", "Eventually", "Why bother?", "ASAP (As Soon As Possible... Maybe)", "Top Secret"]
+CHAOS_PRIORITIES = ["High-ish", "Eventually", "Why bother?", "ASAP (As Soon As Possible... Maybe)", "Top Secret", "When the stars align"]
 
 @app.route('/')
 def index():
